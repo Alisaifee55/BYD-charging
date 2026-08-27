@@ -318,7 +318,7 @@ select:focus{outline:none;border-color:var(--teal);box-shadow:0 0 0 3px rgba(26,
 }
 .time-flip{animation:timeFlipIn .38s cubic-bezier(.34,1.56,.64,1);transform-origin:top center;}
 </style>
-<script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
+<script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer onerror="window.__oneSignalScriptFailed = true;"></script>
 </head>
 <body>
 <div class="app">
@@ -1059,24 +1059,29 @@ function requestNotif() {
 
 const ONESIGNAL_APP_ID = '01451ce7-c96c-4116-b04d-03dd221bfa55';
 window.OneSignalDeferred = window.OneSignalDeferred || [];
+window.__oneSignalInitDone = false;   // flips true only once init() actually resolves
 
 OneSignalDeferred.push(async function (OneSignal) {
-  // The worker file in this project is named 'onesignalsdkworker.js' (lowercase),
-  // not OneSignal's default expected 'OneSignalSDKWorker.js' — without telling
-  // init() the real filename, service worker registration silently fails and
-  // every button below (Enable background push) does nothing when tapped.
-  await OneSignal.init({
-    appId: ONESIGNAL_APP_ID,
-    allowLocalhostAsSecureOrigin: true,
-    serviceWorkerPath: 'onesignalsdkworker.js',
-    serviceWorkerParam: { scope: '/' }
-  });
-  // Reflect current subscription state on the button, in case it was
-  // already enabled in a previous visit.
   try {
+    // The worker file in this project is named 'onesignalsdkworker.js' (lowercase),
+    // not OneSignal's default expected 'OneSignalSDKWorker.js' — without telling
+    // init() the real filename, service worker registration silently fails and
+    // every button below (Enable background push) does nothing when tapped.
+    await OneSignal.init({
+      appId: ONESIGNAL_APP_ID,
+      allowLocalhostAsSecureOrigin: true,
+      serviceWorkerPath: 'onesignalsdkworker.js',
+      serviceWorkerParam: { scope: '/' }
+    });
+    window.__oneSignalInitDone = true;
+    // Reflect current subscription state on the button, in case it was
+    // already enabled in a previous visit.
     const isPushEnabled = OneSignal.User.PushSubscription.optedIn;
     if (isPushEnabled) setPushBtnEnabled();
-  } catch (e) { /* SDK still loading — button stays default */ }
+  } catch (e) {
+    window.__oneSignalInitError = String(e);
+    console.error('OneSignal init failed:', e);
+  }
 });
 
 function setPushBtnEnabled() {
@@ -1087,23 +1092,45 @@ function setPushBtnEnabled() {
 }
 
 function enableBackgroundPush() {
-  if (!window.OneSignalDeferred) { toast('⚠️ Push service still loading, try again in a moment'); return; }
+  if (window.__oneSignalScriptFailed) {
+    toast('⚠️ OneSignal script failed to load — check network/ad-blocker/VPN and reload');
+    return;
+  }
   const isStandalone = window.navigator.standalone === true ||
                         window.matchMedia('(display-mode: standalone)').matches;
   if (!isStandalone) {
     toast('⚠️ Add to Home Screen first (Settings tab below), then tap Enable from there');
     return;
   }
-  OneSignalDeferred.push(async function (OneSignal) {
-    try {
-      await OneSignal.Notifications.requestPermission();
-      await OneSignal.User.PushSubscription.optIn();
-      setPushBtnEnabled();
-      toast('✅ Background push enabled — alerts work even app-closed!');
-    } catch (e) {
-      toast('⚠️ Could not enable background push: ' + e);
+
+  // Give init() up to 6s to finish before declaring it stuck. Without this,
+  // a script that loaded but never resolved init() (blocked storage, CSP,
+  // Safari ITP, etc.) leaves the tap looking like it did nothing at all.
+  const deadline = Date.now() + 6000;
+  (function waitForInit() {
+    if (window.__oneSignalInitError) {
+      toast('⚠️ OneSignal failed to start: ' + window.__oneSignalInitError);
+      return;
     }
-  });
+    if (!window.__oneSignalInitDone) {
+      if (Date.now() > deadline) {
+        toast('⚠️ OneSignal never finished loading — check Safari > Advanced > Web Inspector for errors');
+        return;
+      }
+      setTimeout(waitForInit, 300);
+      return;
+    }
+    OneSignalDeferred.push(async function (OneSignal) {
+      try {
+        await OneSignal.Notifications.requestPermission();
+        await OneSignal.User.PushSubscription.optIn();
+        setPushBtnEnabled();
+        toast('✅ Background push enabled — alerts work even app-closed!');
+      } catch (e) {
+        toast('⚠️ Could not enable background push: ' + e);
+      }
+    });
+  })();
 }
 
 // ════════════════════════════════════════════════════════
