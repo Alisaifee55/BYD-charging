@@ -1070,7 +1070,11 @@ OneSignalDeferred.push(async function (OneSignal) {
     await OneSignal.init({
       appId: ONESIGNAL_APP_ID,
       allowLocalhostAsSecureOrigin: true,
-      serviceWorkerPath: 'onesignalsdkworker.js',
+      // NOTE: OneSignal Web SDK v16 does NOT reliably honor a custom
+      // serviceWorkerPath in this version — it was found (via live device
+      // debugging) to always request the hardcoded default filename
+      // 'OneSignalSDKWorker.js' regardless of this config. Rather than
+      // fight that, we now serve the worker at exactly that filename.
       serviceWorkerParam: { scope: '/' }
     });
     window.__oneSignalInitDone = true;
