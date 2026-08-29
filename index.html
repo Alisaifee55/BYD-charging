@@ -898,8 +898,12 @@ function fireCheckpoint(pct, missed) {
   const msg = pct >= 100
     ? '✅ Charging complete (100%)! Please move your car.'
     : `🔋 Battery at ${pct}%` + (missed ? ' (while you were away)' : '');
-  fireAlarm(msg);
-  notifyServer(pct, msg); // ask Code.gs to push a background notification too
+  fireAlarm(msg, missed);
+  // For live checkpoints (app open, crossed in real time), still ping the
+  // server as a fast-path fallback in case the 5-min keepWarm trigger
+  // hasn't run yet. For "missed" ones, keepWarm has already had time to
+  // catch and send it for real — calling this again is redundant.
+  if (!missed) notifyServer(pct, msg);
 
   if (pct >= 100) {
     localStorage.removeItem('byd_alarmCheckpoints');
@@ -907,14 +911,20 @@ function fireCheckpoint(pct, missed) {
   }
 }
 
-function fireAlarm(msg) {
+function fireAlarm(msg, missed) {
   playBeep();
   toast(msg);
   const el = document.getElementById('alarmBanner');
   el.textContent = msg;
   el.classList.add('show');
   setTimeout(() => el.classList.remove('show'), 9000);
-  if (typeof Notification !== 'undefined' && Notification.permission === 'granted') {
+  // Only fire a real system notification for checkpoints crossed live,
+  // while the app is open. For "missed" (background) checkpoints, the
+  // real OneSignal push already delivered a system notification for
+  // this — firing another one here would just duplicate it. The
+  // toast/banner/beep above still give a harmless in-app catch-up
+  // summary without a second lock-screen alert.
+  if (!missed && typeof Notification !== 'undefined' && Notification.permission === 'granted') {
     new Notification('BYD Charging', { body: msg, icon: '/icon.png' });
   }
 }
