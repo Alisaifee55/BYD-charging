@@ -4,7 +4,7 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no"/>
 <meta name="apple-mobile-web-app-capable" content="yes"/>
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="default"/>
 <meta name="apple-mobile-web-app-title" content="BYD Charge"/>
 <meta name="theme-color" content="#1AADAD"/>
 <link rel="manifest" href="/manifest.json"/>
@@ -865,16 +865,18 @@ function clearAlarms() {
 
 // Called on every app open / tab visibility change.
 // If we missed a checkpoint while the app was in background, fire it now.
+// Staggered 2s apart — firing multiple local Notification() calls in the
+// same tick causes them to visually merge/collapse on iOS instead of
+// appearing as distinct alerts.
 function checkMissedAlarms() {
   const checkpoints = JSON.parse(localStorage.getItem('byd_alarmCheckpoints') || '[]');
   if (!checkpoints.length) return;
   const fired = JSON.parse(localStorage.getItem('byd_alarmFired') || '[]');
   const now = Date.now();
 
-  checkpoints.forEach(cp => {
-    if (!fired.includes(cp.pct) && now >= cp.atMs) {
-      fireCheckpoint(cp.pct, /*missed=*/true);
-    }
+  const missed = checkpoints.filter(cp => !fired.includes(cp.pct) && now >= cp.atMs);
+  missed.forEach((cp, i) => {
+    setTimeout(() => fireCheckpoint(cp.pct, /*missed=*/true), i * 2000);
   });
 }
 
