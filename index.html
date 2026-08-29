@@ -807,12 +807,12 @@ function fmtCost(cost) {
 // ════════════════════════════════════════════════════════
 
 let toastTimer = null;
-function toast(msg) {
+function toast(msg, durationMs) {
   const el = document.getElementById('toast');
   el.textContent = msg;
   el.classList.add('show');
   clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => el.classList.remove('show'), 3500);
+  toastTimer = setTimeout(() => el.classList.remove('show'), durationMs || 3500);
 }
 
 let bannerTimer = null;
@@ -1084,9 +1084,15 @@ OneSignalDeferred.push(async function (OneSignal) {
     // already enabled in a previous visit.
     const isPushEnabled = OneSignal.User.PushSubscription.optedIn;
     if (isPushEnabled) setPushBtnEnabled();
+    // Visible on-screen confirmation — lets us diagnose from the phone
+    // alone, with no cable/Mac/Web Inspector needed.
+    toast('✅ Push service ready (init OK)', 6000);
   } catch (e) {
     window.__oneSignalInitError = String(e);
     console.error('OneSignal init failed:', e);
+    // Same as above — surface this directly on screen immediately,
+    // not just to a console nobody can see on a phone.
+    toast('❌ Push init FAILED: ' + String(e).slice(0, 120), 12000);
   }
 });
 
