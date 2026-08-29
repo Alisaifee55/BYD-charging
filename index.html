@@ -591,6 +591,15 @@ select:focus{outline:none;border-color:var(--teal);box-shadow:0 0 0 3px rgba(26,
     <button class="btn-purple" id="pushBtn" onclick="enableBackgroundPush()" style="height:46px;padding:0 20px;font-size:14px;border-radius:12px;min-width:90px;">📲 Enable</button>
   </div>
 
+  <div class="notif-card" id="testLocalCard" style="background:#fff3cd;">
+    <div style="font-size:26px">🧪</div>
+    <p><b>Diagnostic: local notification test</b><br>
+       Bypasses OneSignal and the network completely — tests only
+       whether THIS device can display a notification from this app
+       at all. Temporary, safe to ignore once notifications work.</p>
+    <button class="btn-purple" onclick="testLocalNotification()" style="height:46px;padding:0 20px;font-size:14px;border-radius:12px;min-width:90px;background:#b8860b;">🧪 Test</button>
+  </div>
+
   <div class="card card-sky">
     <div class="clabel">📱 Add to iPhone Home Screen</div>
     <p style="font-size:13px;color:var(--text2);line-height:1.75;">
@@ -1095,6 +1104,27 @@ OneSignalDeferred.push(async function (OneSignal) {
     toast('❌ Push init FAILED: ' + String(e).slice(0, 120), 12000);
   }
 });
+
+// DIAGNOSTIC — bypasses OneSignal and the network completely. Tests only
+// whether this device/OS will display ANY notification triggered by this
+// app's service worker. If this fails too, the block is device/OS-level,
+// not specific to OneSignal's push handling.
+function testLocalNotification() {
+  if (!('serviceWorker' in navigator)) {
+    toast('❌ No service worker support in this browser context', 8000);
+    return;
+  }
+  navigator.serviceWorker.ready.then(function (reg) {
+    return reg.showNotification('🧪 Local Test', {
+      body: 'If you see this on your lock screen, local display works fine — the issue is specific to OneSignal push delivery, not the device.',
+      icon: '/icon-192.png'
+    });
+  }).then(function () {
+    toast('✅ showNotification() called successfully — check your lock screen now', 8000);
+  }).catch(function (e) {
+    toast('❌ showNotification() FAILED: ' + String(e).slice(0, 150), 12000);
+  });
+}
 
 function setPushBtnEnabled() {
   const btn = document.getElementById('pushBtn');
