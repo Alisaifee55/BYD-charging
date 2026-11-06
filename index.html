@@ -117,6 +117,46 @@ body{height:100%;background:linear-gradient(135deg,#B8F0EE,#D9F0FB,#FFE8E5);back
 .mi-head{grid-column:1/-1;display:flex;align-items:center;gap:8px;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.10em;color:var(--text2);margin-top:6px;}
 .mi-head::after{content:'';flex:1;height:1px;background:var(--border);}
 .mi-note{grid-column:1/-1;font-size:11px;color:var(--text2);text-align:center;line-height:1.45;padding:0 4px 4px;}
+/* ── V4.2 · View D: Mileage band (top) + compact Summary chips ── */
+.mb-band{border-radius:var(--r);padding:12px;margin-bottom:10px;color:#fff;background:linear-gradient(135deg,#085858,#1AADAD 60%,#3AABDF);box-shadow:0 4px 16px rgba(26,173,173,.35);}
+.mb-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:10px;}
+.mb-title{display:flex;align-items:center;gap:6px;font-size:10px;font-weight:800;letter-spacing:.10em;text-transform:uppercase;opacity:.92;}
+.mb-title .ic{width:14px;height:14px;}
+.mb-sub{font-size:10px;font-weight:700;opacity:.85;}
+.mb-toggle{display:flex;background:rgba(255,255,255,.16);border-radius:999px;padding:3px;gap:2px;}
+.mb-toggle button{border:none;background:transparent;font-size:10.5px;font-weight:800;padding:5px 11px;border-radius:999px;color:rgba(255,255,255,.82);cursor:pointer;-webkit-appearance:none;}
+.mb-toggle button.active{background:#fff;color:var(--teal-d);}
+.mb-hero{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.24);border-radius:14px;padding:11px 12px 10px;}
+.mb-top{display:flex;align-items:flex-end;justify-content:space-between;gap:8px;}
+.mb-right{text-align:right;}
+.mb-lbl{font-size:9.5px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;opacity:.88;display:flex;align-items:center;gap:5px;}
+.mb-right .mb-lbl{justify-content:flex-end;}
+.mb-lbl .ic{width:13px;height:13px;}
+.mb-val{font-size:30px;font-weight:900;line-height:1.05;font-variant-numeric:tabular-nums;}
+.mb-val small{font-size:14px;font-weight:800;opacity:.9;margin-left:3px;}
+.mb-batt{font-size:20px;font-weight:900;line-height:1.1;font-variant-numeric:tabular-nums;white-space:nowrap;}
+.mb-batt small{font-size:11px;font-weight:700;opacity:.88;}
+.mb-split{display:flex;gap:2px;height:7px;border-radius:4px;overflow:hidden;background:rgba(255,255,255,.2);margin:10px 0 7px;}
+.mb-leg{display:flex;justify-content:space-between;gap:6px;font-size:10.5px;font-weight:700;flex-wrap:wrap;}
+.mb-leg span{display:flex;align-items:center;gap:5px;}
+.mb-leg i{width:7px;height:7px;border-radius:50%;display:inline-block;}
+.mb-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:9px;}
+.mb-card{display:flex;align-items:center;gap:7px;background:rgba(255,255,255,.96);border-radius:12px;padding:9px 8px;color:var(--text);box-shadow:0 3px 10px rgba(0,60,60,.18);min-width:0;}
+.mb-card .ic{width:16px;height:16px;color:var(--teal-d);}
+.mb-card .v{font-size:13px;font-weight:900;color:var(--teal-d);line-height:1.1;white-space:nowrap;font-variant-numeric:tabular-nums;}
+.mb-card .v small{font-size:10px;font-weight:800;}
+.mb-card .l,.sm-chip .l{font-size:8.5px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;color:var(--text2);line-height:1.2;white-space:nowrap;}
+.mb-note{font-size:10px;font-weight:600;opacity:.88;text-align:center;margin-top:7px;line-height:1.4;}
+.mb-empty{font-size:12px;font-weight:600;text-align:center;line-height:1.45;padding:10px 6px;background:rgba(255,255,255,.12);border-radius:12px;}
+.sm-card{padding:10px 10px 10px;}
+.sm-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;gap:8px;}
+.sm-title{display:flex;align-items:center;gap:6px;font-size:10px;font-weight:800;letter-spacing:.10em;text-transform:uppercase;color:var(--text2);}
+.sm-title .ic{width:14px;height:14px;color:var(--teal-d);}
+.sm-period{font-size:10px;font-weight:700;color:var(--text3);}
+.sm-chips{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;}
+.sm-chip{display:flex;align-items:center;gap:7px;padding:8px;border-radius:12px;background:rgba(26,173,173,.08);border:1px solid var(--border);min-width:0;}
+.sm-chip .ic{width:16px;height:16px;color:var(--teal-d);}
+.sm-chip .v{font-size:13px;font-weight:900;line-height:1.1;white-space:nowrap;font-variant-numeric:tabular-nums;color:var(--text);}
 /* ── Form fields ── */
 .field{margin-bottom:14px;}.field:last-child{margin-bottom:0;}
 .field>label{display:block;font-size:11px;font-weight:700;color:var(--text2);margin-bottom:6px;text-transform:uppercase;letter-spacing:.07em;}
@@ -357,7 +397,7 @@ select:focus{outline:none;border-color:var(--teal);box-shadow:0 0 0 3px rgba(26,
     </div>
     <div style="flex:1;">
       <div class="hdr-title">BYD ALI ASGAR</div>
-      <div class="hdr-sub">Song Plus · 18.3 kWh · Dubai · <span style="opacity:.85;font-weight:800;">V4.1</span></div>
+      <div class="hdr-sub">Song Plus · 18.3 kWh · Dubai · <span style="opacity:.85;font-weight:800;">V4.2</span></div>
     </div>
     <button class="refresh-btn" id="refreshBtn" onclick="refreshApp()" title="Refresh">↻</button>
   </div>
@@ -567,18 +607,25 @@ select:focus{outline:none;border-color:var(--teal);box-shadow:0 0 0 3px rgba(26,
       <button class="btn btn-start" id="startBtn" onclick="startSession()">⚡ Start charging</button>
     </div>
 
-    <!-- Summary stat cards -->
-    <div class="card card-teal" style="padding:16px 16px 6px;">
-      <div class="stat-period-row">
-        <div class="stat-period-title">📊 Summary</div>
-        <div class="stat-toggle" id="chargeStatToggle">
-          <button class="active" onclick="setChargeStatPeriod('30d',this)">Last 30 Days</button>
-          <button onclick="setChargeStatPeriod('month',this)">This Month</button>
+    <!-- V4.2: Mileage band (top) -->
+    <div class="mb-band">
+      <div class="mb-head">
+        <div class="mb-title"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 21 9.5 3M19 21 14.5 3"/><path d="M12 5v2M12 11v2M12 17v2"/></svg>Mileage · approx.</div>
+        <div class="mb-toggle" id="chargeStatToggle">
+          <button class="active" onclick="setChargeStatPeriod('30d',this)">30 Days</button>
+          <button onclick="setChargeStatPeriod('month',this)">Month</button>
         </div>
       </div>
-      <div id="chargeStatGrid" class="stat-grid">
-        <div class="stat-empty">Loading…</div>
+      <div id="chargeMileage"><div class="mb-empty">Loading…</div></div>
+    </div>
+
+    <!-- V4.2: Compact charging summary -->
+    <div class="card sm-card">
+      <div class="sm-head">
+        <div class="sm-title"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>Charging summary</div>
+        <div class="sm-period" id="chargeStatPeriodLbl">Last 30 days</div>
       </div>
+      <div id="chargeStatGrid" class="sm-chips"><div class="stat-empty">Loading…</div></div>
     </div>
 
     <!-- Recent sessions (scrollable) -->
@@ -606,11 +653,20 @@ select:focus{outline:none;border-color:var(--teal);box-shadow:0 0 0 3px rgba(26,
 
 <!-- ─── REPORT PANEL ─── -->
 <div id="panel-report" class="panel">
-  <div class="card card-teal" style="padding:16px 16px 6px;">
-    <div class="clabel">📊 Summary for selected range</div>
-    <div id="reportStatGrid" class="stat-grid">
-      <div class="stat-empty">Loading…</div>
+  <!-- V4.2: Mileage band + compact summary for the selected range -->
+  <div class="mb-band">
+    <div class="mb-head">
+      <div class="mb-title"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 21 9.5 3M19 21 14.5 3"/><path d="M12 5v2M12 11v2M12 17v2"/></svg>Mileage · approx.</div>
+      <div class="mb-sub">Selected range</div>
     </div>
+    <div id="reportMileage"><div class="mb-empty">Loading…</div></div>
+  </div>
+  <div class="card sm-card">
+    <div class="sm-head">
+      <div class="sm-title"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>Charging summary</div>
+      <div class="sm-period">Selected range</div>
+    </div>
+    <div id="reportStatGrid" class="sm-chips"><div class="stat-empty">Loading…</div></div>
   </div>
   <div class="card card-amber" style="padding:14px 16px;">
     <div class="clabel">📆 Date range</div>
@@ -1513,7 +1569,13 @@ const ICONS = {
   batt:  '<rect x="2.5" y="7" width="17" height="10" rx="2"/><path d="M22 11v2"/><path d="M6 10v4M9.5 10v4M13 10v4"/>',
   coin:  '<circle cx="12" cy="12" r="9"/><path d="M14.8 9.2c-.5-.8-1.6-1.4-2.8-1.4-1.6 0-2.8.9-2.8 2.1s1.2 1.7 2.8 2.1 2.8.9 2.8 2.1-1.2 2.1-2.8 2.1c-1.2 0-2.3-.6-2.8-1.4M12 6v1.8M12 16.2V18"/>',
   fuel:  '<path d="M4 21V5a2 2 0 0 1 2-2h5a2 2 0 0 1 2 2v16"/><path d="M3 21h11M4 10h9"/><path d="M13 9h2a2 2 0 0 1 2 2v5a1.5 1.5 0 0 0 3 0V8.5L17 5.5"/>',
-  alert: '<path d="M12 3 2 20h20z"/><path d="M12 10v4M12 17v.5"/>'
+  alert: '<path d="M12 3 2 20h20z"/><path d="M12 10v4M12 17v.5"/>',
+  plug:   '<path d="M9 2v5M15 2v5"/><path d="M6 7h12v4a6 6 0 0 1-12 0z"/><path d="M12 17v5"/>',
+  bolt:   '<path d="M13 2 4.5 13.5H11L10 22l8.5-11.5H12z"/>',
+  cash:   '<rect x="3" y="6" width="18" height="12" rx="2"/><circle cx="12" cy="12" r="2.5"/><path d="M6 9v.01M18 15v.01"/>',
+  clock:  '<circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2.5M10 2h4"/>',
+  plus:   '<rect x="2.5" y="7" width="17" height="10" rx="2"/><path d="M22 11v2"/><path d="M8 12h6M11 9v6"/>',
+  trophy: '<path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0z"/><path d="M7 6H4a3 3 0 0 0 3 4M17 6h3a3 3 0 0 1-3 4"/>'
 };
 function ic(name) {
   return '<svg class="ic" viewBox="0 0 24 24" aria-hidden="true">' + (ICONS[name] || '') + '</svg>';
@@ -1590,63 +1652,80 @@ function lastOdoSession(asc) {
 }
 
 function mileageStats(sessions, map) {
-  const m = { totalKm: 0, evKm: 0, evKwh: 0, evCost: 0, evCostKm: 0,
-              okN: 0, fuelN: 0, fuelKm: 0, oddN: 0 };
+  const m = { totalKm: 0, totalPct: 0, fuelKm: 0, fuelPct: 0,
+              okKm: 0, okPct: 0, okKwh: 0, okCost: 0, okCostKm: 0,
+              okN: 0, fuelN: 0, oddN: 0 };
   sessions.forEach(s => {
     const c = map[s.startTime];
     if (!c || c.km === null || c.status === 'bad') return;
-    m.totalKm += c.km;
-    if (c.status === 'fuel') { m.fuelN++; m.fuelKm += c.km; }
+    // A negative gap (unlogged charge somewhere) never reduces "battery used"
+    const pct = Math.max(0, Number(c.pctUsed) || 0);
+    m.totalKm += c.km; m.totalPct += pct;
+    if (c.status === 'fuel') { m.fuelN++; m.fuelKm += c.km; m.fuelPct += pct; }
     if (c.status === 'odd')  m.oddN++;
     if (c.status === 'ok') {
-      m.okN++; m.evKm += c.km; m.evKwh += c.kwhUsed;
-      if (c.cost !== null) { m.evCost += c.cost; m.evCostKm += c.km; }
+      m.okN++; m.okKm += c.km; m.okPct += pct; m.okKwh += c.kwhUsed;
+      if (c.cost !== null) { m.okCost += c.cost; m.okCostKm += c.km; }
     }
   });
-  // Weighted average (total km ÷ total kWh) — steadier than averaging ratios
-  m.kmPerKwh = m.evKwh > 0 ? m.evKm / m.evKwh : null;
+  m.elecKm      = m.totalKm  - m.fuelKm;
+  m.elecPct     = m.totalPct - m.fuelPct;
+  m.fullCharges = m.totalPct / 100;
+  // Efficiency figures use ONLY clean electric cycles (weighted: total km ÷ total used)
+  m.kmPerKwh = m.okKwh > 0 ? m.okKm / m.okKwh : null;
+  m.kmPerPct = m.okPct > 0 ? m.okKm / m.okPct : null;
   m.rangeKm  = m.kmPerKwh !== null ? m.kmPerKwh * BATTERY_KWH : null;
-  m.aedPerKm = m.evCostKm > 0 ? m.evCost / m.evCostKm : null;
+  m.aedPerKm = m.okCostKm > 0 ? m.okCost / m.okCostKm : null;
   return m;
 }
 
-function mileageCardsHTML(sessions) {
+// V4.2 · View D — Mileage band contents (Distance hero + 3 small cards + note)
+function mileageBandHTML(sessions) {
   const { map } = computeCycles();
-  const m    = mileageStats(sessions, map);
-  const head = '<div class="mi-head">' + ic('road') + ' Mileage · approx.</div>';
+  const m = mileageStats(sessions, map);
 
   if (m.totalKm === 0 && m.okN === 0 && m.fuelN === 0) {
-    return head + '<div class="mi-note">Type the odometer each time you plug in. ' +
-      'After two charges with a reading you will see km, km/kWh and cost per km here.</div>';
+    return '<div class="mb-empty">Type the odometer each time you plug in. After two charges ' +
+           'with a reading you will see distance, battery used and cost per km here.</div>';
   }
 
-  const parts = [];
-  parts.push(m.okN + ' electric cycle' + (m.okN === 1 ? '' : 's'));
-  if (m.fuelN) parts.push(m.fuelN + ' fuel trip' + (m.fuelN === 1 ? '' : 's') + ' (' + fmtKm(m.fuelKm) + ' km) kept out');
-  if (m.oddN)  parts.push(m.oddN + ' odd reading' + (m.oddN === 1 ? '' : 's') + ' skipped');
+  const evW   = m.totalPct > 0 ? (m.elecPct / m.totalPct * 100) : 100;
+  const hasFu = m.fuelN > 0;
+  const val   = (x, d, unit) => x === null ? '—' : '≈' + x.toFixed(d) + '<small> ' + unit + '</small>';
 
-  return head + `
-    <div class="stat-card stat-c2">
-      <span class="si">${ic('road')}</span>
-      <div class="sv">${fmtKm(m.totalKm)} km</div>
-      <div class="sl">Distance Driven</div>
+  const notes = [];
+  if (m.kmPerKwh !== null) notes.push('≈' + m.kmPerKwh.toFixed(1) + ' km/kWh');
+  notes.push(m.okN + ' electric cycle' + (m.okN === 1 ? '' : 's'));
+  if (m.fuelN) notes.push(m.fuelN + ' fuel trip' + (m.fuelN === 1 ? '' : 's') + ' kept out');
+  if (m.oddN)  notes.push(m.oddN + ' odd reading' + (m.oddN === 1 ? '' : 's') + ' skipped');
+
+  return `
+    <div class="mb-hero">
+      <div class="mb-top">
+        <div>
+          <div class="mb-lbl">${ic('road')}Distance driven</div>
+          <div class="mb-val">${fmtKm(m.totalKm)}<small>km</small></div>
+        </div>
+        <div class="mb-right">
+          <div class="mb-lbl">${ic('batt')}Battery used</div>
+          <div class="mb-batt">${Math.round(m.totalPct)}%<small> ≈${m.fullCharges.toFixed(1)} full</small></div>
+        </div>
+      </div>
+      <div class="mb-split">
+        <div style="width:${evW.toFixed(1)}%;background:#fff"></div>
+        ${hasFu ? '<div style="flex:1;background:#F0A040"></div>' : ''}
+      </div>
+      <div class="mb-leg">
+        <span><i style="background:#fff"></i>Electric ${fmtKm(m.elecKm)} km · ${Math.round(m.elecPct)}%</span>
+        ${hasFu ? `<span><i style="background:#F0A040"></i>Fuel ${fmtKm(m.fuelKm)} km · ${Math.round(m.fuelPct)}%</span>` : ''}
+      </div>
     </div>
-    <div class="stat-card stat-c4">
-      <span class="si">${ic('gauge')}</span>
-      <div class="sv">${m.kmPerKwh === null ? '—' : '≈' + m.kmPerKwh.toFixed(1)}</div>
-      <div class="sl">km per kWh · Electric</div>
+    <div class="mb-cards">
+      <div class="mb-card">${ic('gauge')}<div><div class="v">${val(m.kmPerPct, 1, 'km')}</div><div class="l">per 1%</div></div></div>
+      <div class="mb-card">${ic('batt')}<div><div class="v">${val(m.rangeKm, 0, 'km')}</div><div class="l">on 100%</div></div></div>
+      <div class="mb-card">${ic('coin')}<div><div class="v">${val(m.aedPerKm === null ? null : m.aedPerKm * 100, 1, 'fils')}</div><div class="l">per km</div></div></div>
     </div>
-    <div class="stat-card stat-c5">
-      <span class="si">${ic('batt')}</span>
-      <div class="sv">${m.rangeKm === null ? '—' : '≈' + Math.round(m.rangeKm) + ' km'}</div>
-      <div class="sl">Range on 100%</div>
-    </div>
-    <div class="stat-card stat-c3">
-      <span class="si">${ic('coin')}</span>
-      <div class="sv">${m.aedPerKm === null ? '—' : '≈' + (m.aedPerKm * 100).toFixed(1) + ' fils'}</div>
-      <div class="sl">Cost per km · Electric</div>
-    </div>
-    <div class="mi-note">Based on ${parts.join(' · ')}</div>`;
+    <div class="mb-note">${notes.join(' · ')}</div>`;
 }
 
 // Small pill on each session card
@@ -1946,48 +2025,33 @@ function computeStats(sessions) {
   return { count, totalKwh, totalMins, totalCost, avgPct, longestMin };
 }
 
+// V4.2: each summary grid has a matching Mileage band
+const MILEAGE_TARGET = { chargeStatGrid: 'chargeMileage', reportStatGrid: 'reportMileage' };
+
 function renderStatCards(containerId, sessions) {
-  const el = document.getElementById(containerId);
+  const el  = document.getElementById(containerId);
+  const mEl = document.getElementById(MILEAGE_TARGET[containerId] || '');
   if (!el) return;
 
   if (sessions.length === 0) {
     el.innerHTML = '<div class="stat-empty">No sessions in this period yet</div>';
+    if (mEl) mEl.innerHTML = '<div class="mb-empty">No sessions in this period yet</div>';
     return;
   }
 
-  const st = computeStats(sessions);
+  const st   = computeStats(sessions);
+  const chip = (icon, v, l) =>
+    `<div class="sm-chip">${ic(icon)}<div><div class="v">${v}</div><div class="l">${l}</div></div></div>`;
 
-  el.innerHTML = `
-    <div class="stat-card stat-c1">
-      <span class="si">🔌</span>
-      <div class="sv">${st.count}</div>
-      <div class="sl">Total Sessions</div>
-    </div>
-    <div class="stat-card stat-c2">
-      <span class="si">⚡</span>
-      <div class="sv">${st.totalKwh.toFixed(1)}</div>
-      <div class="sl">Total kWh Added</div>
-    </div>
-    <div class="stat-card stat-c3">
-      <span class="si">⏱️</span>
-      <div class="sv">${fmtDuration(st.totalMins)}</div>
-      <div class="sl">Total Hours Charging</div>
-    </div>
-    <div class="stat-card stat-c4">
-      <span class="si">💰</span>
-      <div class="sv">AED ${st.totalCost.toFixed(2)}</div>
-      <div class="sl">Total Cost</div>
-    </div>
-    <div class="stat-card stat-c5">
-      <span class="si">🔋</span>
-      <div class="sv">+${st.avgPct.toFixed(0)}%</div>
-      <div class="sl">Avg % Per Charge</div>
-    </div>
-    <div class="stat-card stat-c6">
-      <span class="si">🏆</span>
-      <div class="sv">${fmtDuration(st.longestMin)}</div>
-      <div class="sl">Longest Session</div>
-    </div>` + mileageCardsHTML(sessions);
+  el.innerHTML =
+    chip('plug',   st.count,                    'sessions') +
+    chip('bolt',   st.totalKwh.toFixed(1),      'kWh') +
+    chip('cash',   st.totalCost.toFixed(2),     'AED') +
+    chip('clock',  fmtDuration(st.totalMins),   'charging') +
+    chip('plus',   '+' + st.avgPct.toFixed(0) + '%', 'avg') +
+    chip('trophy', fmtDuration(st.longestMin),  'longest');
+
+  if (mEl) mEl.innerHTML = mileageBandHTML(sessions);
 }
 
 // ════════════════════════════════════════════════════════
@@ -2000,6 +2064,8 @@ function renderRecentSessions() {
   const sessions   = getChargeStatSessions();
 
   if (label) label.textContent = chargeStatPeriod === '30d' ? '📅 Last 30 days' : '📅 This month';
+  const periodLbl = document.getElementById('chargeStatPeriodLbl');
+  if (periodLbl) periodLbl.textContent = chargeStatPeriod === '30d' ? 'Last 30 days' : 'This month';
   updateStartMileage();               // history may have just arrived → refresh odometer hint
   const cycMap = computeCycles().map;
   renderStatCards('chargeStatGrid', sessions);
