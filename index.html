@@ -157,6 +157,46 @@ body{height:100%;background:linear-gradient(135deg,#B8F0EE,#D9F0FB,#FFE8E5);back
 .sm-chip{display:flex;align-items:center;gap:7px;padding:8px;border-radius:12px;background:rgba(26,173,173,.08);border:1px solid var(--border);min-width:0;}
 .sm-chip .ic{width:16px;height:16px;color:var(--teal-d);}
 .sm-chip .v{font-size:13px;font-weight:900;line-height:1.1;white-space:nowrap;font-variant-numeric:tabular-nums;color:var(--text);}
+/* ── V4.3 · Trip-wise mileage (Glass) — last 10 trips inside the Mileage band ── */
+.tp{margin-top:9px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.24);border-radius:12px;color:#fff;overflow:hidden;}
+.tp-head{display:flex;align-items:center;gap:7px;padding:9px 10px 2px;font-size:9.5px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.85);cursor:pointer;}
+.tp-head .ic{width:13px;height:13px;color:#fff;}
+.tp-cnt{margin-left:auto;display:flex;align-items:center;gap:3px;letter-spacing:0;text-transform:none;font-size:10.5px;font-weight:800;color:#fff;}
+.tp-cnt .ic{width:14px;height:14px;transition:transform .25s;}
+.tp.open .tp-cnt .ic{transform:rotate(180deg);}
+.tp-list{padding:0 10px;}
+.tp-tr{border-bottom:1px solid rgba(255,255,255,.16);}
+.tp-tr:last-child{border-bottom:none;}
+.tp-tr.det{background:rgba(0,40,40,.18);margin:0 -10px;padding:0 10px;}
+.tp-row{display:grid;grid-template-columns:76px 1fr auto 14px;align-items:center;gap:9px;padding:8px 0;cursor:pointer;}
+.tp-d b{display:block;font-size:12.5px;font-weight:900;}
+.tp-d span{font-size:9.5px;font-weight:700;color:rgba(255,255,255,.75);}
+.tp-km{font-size:14px;font-weight:900;font-variant-numeric:tabular-nums;display:flex;align-items:baseline;gap:4px;}
+.tp-km small{font-size:10px;font-weight:800;color:rgba(255,255,255,.75);}
+.tp-km em{font-style:normal;margin-left:auto;font-size:10px;font-weight:800;color:rgba(255,255,255,.75);white-space:nowrap;}
+.tp-pb{height:5px;border-radius:3px;background:rgba(255,255,255,.18);margin-top:4px;overflow:hidden;}
+.tp-pb i{display:block;height:100%;border-radius:3px;}
+.tp-row > .ic{width:14px;height:14px;color:rgba(255,255,255,.7);transition:transform .2s;}
+.tp-tr.det .tp-row > .ic{transform:rotate(180deg);color:#fff;}
+.tp-tg{display:inline-flex;align-items:center;gap:3px;font-size:10px;font-weight:800;padding:3px 7px;border-radius:999px;white-space:nowrap;}
+.tp-tg .ic{width:11px;height:11px;}
+.tp-tg.ok{background:rgba(255,255,255,.92);color:var(--teal-d);}
+.tp-tg.fuel{background:#F0A040;color:#3D2200;}
+.tp-tg.odd{background:#E8826E;color:#fff;}
+.tp-tg.small{background:rgba(255,255,255,.22);color:#fff;}
+.tp-det{display:none;grid-template-columns:1fr 1fr;gap:6px;padding:2px 0 10px;}
+.tp-tr.det .tp-det{display:grid;animation:tpIn .22s ease;}
+@keyframes tpIn{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
+.tp-det > div{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.14);border-radius:9px;padding:6px 8px;min-width:0;}
+.tp-det .l{font-size:8.5px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;color:rgba(255,255,255,.75);display:flex;align-items:center;gap:4px;}
+.tp-det .l .ic{width:11px;height:11px;color:#fff;}
+.tp-det .v{font-size:12px;font-weight:900;color:#fff;margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.tp-det .tp-msg{grid-column:1/-1;font-size:11px;font-weight:700;line-height:1.4;}
+.tp-msg.fuel{background:rgba(240,160,64,.25);}
+.tp-msg.odd{background:rgba(232,130,110,.28);}
+.tp-msg.small{background:rgba(255,255,255,.12);}
+.tp-foot{text-align:center;font-size:10.5px;font-weight:800;color:#fff;padding:8px;border-top:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.08);cursor:pointer;}
+.tp-hint{font-size:10px;font-weight:700;text-align:center;opacity:.9;margin-top:6px;}
 /* ── Form fields ── */
 .field{margin-bottom:14px;}.field:last-child{margin-bottom:0;}
 .field>label{display:block;font-size:11px;font-weight:700;color:var(--text2);margin-bottom:6px;text-transform:uppercase;letter-spacing:.07em;}
@@ -397,7 +437,7 @@ select:focus{outline:none;border-color:var(--teal);box-shadow:0 0 0 3px rgba(26,
     </div>
     <div style="flex:1;">
       <div class="hdr-title">BYD ALI ASGAR</div>
-      <div class="hdr-sub">Song Plus · 18.3 kWh · Dubai · <span style="opacity:.85;font-weight:800;">V4.2</span></div>
+      <div class="hdr-sub">Song Plus · 18.3 kWh · Dubai · <span style="opacity:.85;font-weight:800;">V4.3</span></div>
     </div>
     <button class="refresh-btn" id="refreshBtn" onclick="refreshApp()" title="Refresh">↻</button>
   </div>
@@ -617,6 +657,7 @@ select:focus{outline:none;border-color:var(--teal);box-shadow:0 0 0 3px rgba(26,
         </div>
       </div>
       <div id="chargeMileage"><div class="mb-empty">Loading…</div></div>
+      <div id="chargeTrips"></div>
     </div>
 
     <!-- V4.2: Compact charging summary -->
@@ -1575,7 +1616,9 @@ const ICONS = {
   cash:   '<rect x="3" y="6" width="18" height="12" rx="2"/><circle cx="12" cy="12" r="2.5"/><path d="M6 9v.01M18 15v.01"/>',
   clock:  '<circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2.5M10 2h4"/>',
   plus:   '<rect x="2.5" y="7" width="17" height="10" rx="2"/><path d="M22 11v2"/><path d="M8 12h6M11 9v6"/>',
-  trophy: '<path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0z"/><path d="M7 6H4a3 3 0 0 0 3 4M17 6h3a3 3 0 0 1-3 4"/>'
+  trophy: '<path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0z"/><path d="M7 6H4a3 3 0 0 0 3 4M17 6h3a3 3 0 0 1-3 4"/>',
+  list:   '<path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/>',
+  chevd:  '<path d="M6 9l6 6 6-6"/>'
 };
 function ic(name) {
   return '<svg class="ic" viewBox="0 0 24 24" aria-hidden="true">' + (ICONS[name] || '') + '</svg>';
@@ -1609,6 +1652,14 @@ function cycleFor(list, end, cur) {
   c.km = curOdo - toOdo(list[j].odo);
   if (c.km < 0) { c.status = 'bad'; return c; }
 
+  // V4.3: trip endpoints (used by the trip-wise list)
+  c.fromTime = list[j].stopTime || list[j].startTime; // unplug of the base charge
+  c.toTime   = cur.startTime;                          // plug-in that ends this trip
+  c.fromOdo  = toOdo(list[j].odo);
+  c.toOdo    = curOdo;
+  c.fromPct  = Number(list[j].stopPct) || 0;
+  c.toPct    = Number(cur.startPct) || 0;
+
   // chain = base reading … every charge in between … this plug-in
   const chain = list.slice(j, end).concat([cur]);
   let pct = 0;
@@ -1618,6 +1669,7 @@ function cycleFor(list, end, cur) {
   }
   c.spans   = chain.length - 1;
   c.pctUsed = pct;
+  c.rate    = Number(chain[chain.length - 2].rate) || currentRate || 0;
 
   if (c.fuel)                  { c.status = 'fuel';  return c; }
   if (pct < MIN_PCT_FOR_EFF)   { c.status = 'small'; return c; }
@@ -1677,6 +1729,122 @@ function mileageStats(sessions, map) {
   m.rangeKm  = m.kmPerKwh !== null ? m.kmPerKwh * BATTERY_KWH : null;
   m.aedPerKm = m.okCostKm > 0 ? m.okCost / m.okCostKm : null;
   return m;
+}
+
+// ════════════════════════════════════════════════════════
+//  V4.3 · TRIP-WISE MILEAGE — last 10 trips (ignores 30 Days / Month)
+//  A trip = from unplugging one charge with an odometer reading to
+//  the next plug-in with a reading (spans >1 charge if one was skipped).
+//  Closed  : only the latest trip row shows.
+//  Tap it  : the full list opens AND the latest trip's details open.
+//  Tap any : toggles that trip's details (one open at a time).
+// ════════════════════════════════════════════════════════
+const TRIP_LIMIT = 10;
+let tripOpen   = false;   // full list visible?
+let tripDetKey = null;    // startTime of the trip whose details are open
+
+function tripList() {
+  const { asc, map } = computeCycles();
+  const out = [];
+  for (let k = asc.length - 1; k >= 0 && out.length < TRIP_LIMIT; k--) {
+    const c = map[asc[k].startTime];
+    if (c && c.km !== null && ['ok', 'fuel', 'small', 'odd'].includes(c.status)) {
+      out.push({ key: asc[k].startTime, c });
+    }
+  }
+  return out;  // newest first
+}
+
+function tripSpan(c) {
+  const ms = parseISO(c.toTime).getTime() - parseISO(c.fromTime).getTime();
+  if (!isFinite(ms) || ms <= 0) return '';
+  const h = ms / 3600000;
+  return h < 24 ? Math.max(1, Math.round(h)) + 'h' : Math.round(h / 24) + 'd';
+}
+
+function tripTag(c) {
+  if (c.status === 'ok')   return '<span class="tp-tg ok">≈' + (c.km / c.pctUsed).toFixed(1) + ' km/%</span>';
+  if (c.status === 'fuel') return '<span class="tp-tg fuel">' + ic('fuel') + 'Fuel</span>';
+  if (c.status === 'odd')  return '<span class="tp-tg odd">' + ic('alert') + 'Check</span>';
+  return '<span class="tp-tg small">Short</span>';
+}
+
+function tripDetails(c) {
+  const pct  = Number(c.pctUsed) || 0;
+  const kwh  = pct > 0 ? pct / 100 * BATTERY_KWH : null;
+  const box  = (i, l, v) => '<div><div class="l">' + ic(i) + l + '</div><div class="v">' + v + '</div></div>';
+  let h = box('gauge', 'Odometer', fmtKm(c.fromOdo) + ' → ' + fmtKm(c.toOdo))
+        + box('batt',  'Battery',  c.spans > 1 ? pct + '% over ' + c.spans + ' charges' : c.fromPct + '% → ' + c.toPct + '%')
+        + box('bolt',  'Energy used', kwh === null ? '—' : '≈' + kwh.toFixed(1) + ' kWh')
+        + box('coin',  'Cost', (kwh !== null && c.rate > 0) ? '≈AED ' + (kwh * c.rate).toFixed(2) : '—');
+  if (c.status === 'ok') {
+    h += box('gauge', 'Efficiency', '≈' + c.kmPerKwh.toFixed(1) + ' km/kWh')
+       + box('batt',  'At this rate', '≈' + Math.round(c.km / pct * 100) + ' km on 100%');
+  } else if (c.status === 'fuel') {
+    h += '<div class="tp-msg fuel">Fuel trip — counted in distance, kept out of the electric average.</div>';
+  } else if (c.status === 'odd') {
+    h += '<div class="tp-msg odd">' + (c.kmPerKwh > MAX_EV_KM_PER_KWH
+          ? 'Too good for electric only — probably fuel was used. Skipped from the average.'
+          : 'Unusually low — please check the odometer. Skipped from the average.') + '</div>';
+  } else {
+    h += '<div class="tp-msg small">Only ' + pct + '% used — too little for a reliable efficiency figure.</div>';
+  }
+  return h;
+}
+
+function tripListHTML() {
+  const trips = tripList();
+  if (!trips.length) return '';
+  // keep the open trip valid after data refreshes
+  if (tripDetKey && !trips.some(t => t.key === tripDetKey)) tripDetKey = null;
+
+  const COL = { ok: '#FFFFFF', fuel: '#F0A040', odd: '#E8826E', small: 'rgba(255,255,255,.55)' };
+  const rows = trips.map((t, i) => {
+    if (i > 0 && !tripOpen) return '';
+    const c = t.c, pct = Number(c.pctUsed) || 0;
+    const span = tripSpan(c);
+    return `
+      <div class="tp-tr${tripOpen && tripDetKey === t.key ? ' det' : ''}">
+        <div class="tp-row" onclick="tripTap('${t.key}')">
+          <div class="tp-d"><b>${fmtDate(c.toTime)}</b><span>from ${fmtDate(c.fromTime)}${span ? ' · ' + span : ''}</span></div>
+          <div>
+            <div class="tp-km">${fmtKm(c.km)} <small>km</small><em>${pct}% used</em></div>
+            <div class="tp-pb"><i style="width:${Math.max(0, Math.min(100, pct))}%;background:${COL[c.status]}"></i></div>
+          </div>
+          ${tripTag(c)}${ic('chevd')}
+        </div>
+        <div class="tp-det">${tripDetails(c)}</div>
+      </div>`;
+  }).join('');
+
+  return `
+    <div class="tp${tripOpen ? ' open' : ''}" id="tripBox">
+      <div class="tp-head" onclick="tripToggleAll()">
+        ${ic('list')}${tripOpen ? 'Trip-wise mileage' : 'Last trip'}
+        <span class="tp-cnt">${tripOpen ? 'Hide' : 'Last ' + trips.length + ' trip' + (trips.length === 1 ? '' : 's')}${ic('chevd')}</span>
+      </div>
+      <div class="tp-list">${rows}</div>
+      ${tripOpen ? '<div class="tp-foot" onclick="tripToggleAll()">Show less</div>' : ''}
+    </div>
+    <div class="tp-hint">${tripOpen ? 'Tap a trip for details' : 'Tap the trip to see details and all trips'}</div>`;
+}
+
+function renderTrips() {
+  const el = document.getElementById('chargeTrips');
+  if (el) el.innerHTML = tripListHTML();
+}
+
+// Closed → one tap opens the list AND that trip's details.
+// Open   → tap toggles that trip's details (one at a time).
+function tripTap(key) {
+  if (!tripOpen) { tripOpen = true; tripDetKey = key; }
+  else           { tripDetKey = (tripDetKey === key) ? null : key; }
+  renderTrips();
+}
+function tripToggleAll() {
+  tripOpen = !tripOpen;
+  tripDetKey = tripOpen ? (tripList()[0] || {}).key || null : null;
+  renderTrips();
 }
 
 // V4.2 · View D — Mileage band contents (Distance hero + 3 small cards + note)
@@ -2032,6 +2200,8 @@ function renderStatCards(containerId, sessions) {
   const el  = document.getElementById(containerId);
   const mEl = document.getElementById(MILEAGE_TARGET[containerId] || '');
   if (!el) return;
+
+  if (containerId === 'chargeStatGrid') renderTrips();   // last 10 trips — independent of period
 
   if (sessions.length === 0) {
     el.innerHTML = '<div class="stat-empty">No sessions in this period yet</div>';
